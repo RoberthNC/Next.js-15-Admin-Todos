@@ -8,7 +8,7 @@ interface Segments {
 }
 
 export async function GET(request: Request, { params }: Segments) {
-  const { id } = params;
+  const { id } = await params;
   const todo = await prisma.todo.findFirst({
     where: {
       id,
