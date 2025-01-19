@@ -1,3 +1,6 @@
+export const dynamic = "auto";
+export const revalidate = 0;
+
 import { Metadata } from "next";
 import prisma from "@/lib/prisma";
 import { NewTodo, TodosGrid } from "@/todos";
