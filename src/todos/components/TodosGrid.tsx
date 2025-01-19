@@ -1,10 +1,9 @@
 "use client";
 
-import { Todo } from "@prisma/client";
-import { TodoItem } from "./TodoItem";
-
-import * as todosApi from "@/todos/helpers/todos";
 import { useRouter } from "next/navigation";
+import { Todo } from "@prisma/client";
+import * as todosApi from "@/todos/helpers/todos";
+import { TodoItem } from "./TodoItem";
 
 interface Props {
   todos?: Todo[];
