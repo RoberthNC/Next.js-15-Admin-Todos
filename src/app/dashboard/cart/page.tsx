@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { Product, products } from "@/products/data/products";
 import { ItemCard } from "@/shopping-cart";
+import { WidgetItem } from "@/components";
 
 export const metadata: Metadata = {
   title: "Productos en el Carrito",
@@ -31,6 +32,11 @@ export default async function CartPage() {
   };
   const productsInCart = getProductsInCart(cart);
 
+  const totalToPay = productsInCart.reduce(
+    (acc, current) => acc + current.quantity * current.product.price,
+    0
+  );
+
   return (
     <div>
       <h1 className="text-5xl ">Productos en el Carrito</h1>
@@ -40,6 +46,19 @@ export default async function CartPage() {
           {productsInCart.map(({ product, quantity }) => (
             <ItemCard key={product.id} product={product} quantity={quantity} />
           ))}
+        </div>
+
+        <div className="flex flex-col w-full sm:w-4/12">
+          <WidgetItem title="Total a Pagar">
+            <div className="mt-2 flex justify-center gap-4">
+              <h3 className="text-3xl font-bold text-gray-700">
+                ${(totalToPay * 1.15).toFixed(2)}
+              </h3>
+            </div>
+            <span className="font-bold text-center text-gray-500">
+              Impuestos 15%: ${(totalToPay * 0.15).toFixed(2)}
+            </span>
+          </WidgetItem>
         </div>
       </div>
     </div>
