@@ -1,5 +1,10 @@
+import { Metadata } from "next";
 import { ProductCard } from "@/products";
 import { products } from "@/products/data/products";
+
+export const metadata: Metadata = {
+  title: "Productos",
+};
 
 export default function ProductsPage() {
   return (
