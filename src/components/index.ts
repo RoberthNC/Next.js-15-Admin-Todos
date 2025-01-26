@@ -1,3 +1,4 @@
+export * from "./buttons/LogoutButton";
 export * from "./sidebar/Sidebar";
 export * from "./sidebar/SidebarItem";
 export * from "./tab-bar/TabBar";
