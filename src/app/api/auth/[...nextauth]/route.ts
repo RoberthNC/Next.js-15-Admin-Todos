@@ -4,6 +4,8 @@ import { Adapter } from "next-auth/adapters";
 import prisma from "@/lib/prisma";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { signInEmailPassword } from "@/auth/actions/auth-actions";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
@@ -15,6 +17,33 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_ID!,
       clientSecret: process.env.GOOGLE_SECRET!,
+    }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        username: {
+          label: "Correo Electrónico",
+          type: "email",
+          placeholder: "example@gmail.com",
+        },
+        password: {
+          label: "Contraseña",
+          type: "password",
+          placeholder: "********",
+        },
+      },
+      async authorize(credentials) {
+        // Add logic here to look up the user from the credentials supplied
+        const user = await signInEmailPassword(
+          credentials!.username,
+          credentials!.password
+        );
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
+      },
     }),
   ],
 
