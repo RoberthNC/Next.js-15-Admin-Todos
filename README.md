@@ -15,6 +15,11 @@ Pasos para levantar la app en desarrollo
 
 6. Ejecutar el seed para llenar la Base de Datos local [(http://localhost:3000/api/seed)]
 
+# Nota: Credenciales por defecto
+
+**Usuario**: test1@gmail.com
+**Password**: 123456
+
 # Comandos de Prisma
 
 `npx prisma init`

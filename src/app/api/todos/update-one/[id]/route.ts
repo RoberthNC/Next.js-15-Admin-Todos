@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import * as yup from "yup";
 import prisma from "@/lib/prisma";
+import { getUserSession } from "@/auth/actions/auth-actions";
 
 interface Segments {
   params: {
@@ -25,8 +26,12 @@ export async function PUT(request: Request, { params }: Segments) {
     const { complete, description } = await putSchema.validate(
       await request.json()
     );
+    const user = await getUserSession();
+
+    if (!user)
+      return NextResponse.json({ message: "No Autorizado" }, { status: 401 });
     const updatedTodo = await prisma.todo.update({
-      where: { id },
+      where: { id, userId: user.id },
       data: {
         complete,
         description,
